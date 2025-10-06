@@ -9,11 +9,7 @@ ExitProcess PROTO, dwExitCode: DWORD
 	max1 DWORD 60
 	score2 DWORD 45
 	max2 BYTE 55
-	temp DWORD ?
-	dividend BYTE ?
 	divisor DWORD ?
-	quotient BYTE ?
-	percentage BYTE ?
 
 
 .code
@@ -25,10 +21,10 @@ main PROC
 	mov divisor, eax ;3300 expected
 	mov eax, score1 
 	mul max2
-	mov temp, eax
-	mov eax, score2
+	mov ecx, eax
+	mov eax, score2 
 	mul max1
-	add eax, temp
+	add eax, ecx
 	mul fifty
 	div divisor
 
