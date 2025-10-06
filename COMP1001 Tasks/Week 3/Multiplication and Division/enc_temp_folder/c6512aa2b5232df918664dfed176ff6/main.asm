@@ -26,7 +26,7 @@ main PROC
 	mov eax, score1 
 	mul max2
 	mov temp, eax
-	mov eax, score2 
+	mov eax, score2
 	mul max1
 	add eax, temp
 	mul fifty
