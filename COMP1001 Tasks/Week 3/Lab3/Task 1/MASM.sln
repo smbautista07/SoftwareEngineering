@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36414.22 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MASM", "MASM\MASM.vcxproj", "{0BD23FCC-0031-41B3-9EF2-7B239B040D58}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0BD23FCC-0031-41B3-9EF2-7B239B040D58}.Debug|x64.ActiveCfg = Debug|x64
+		{0BD23FCC-0031-41B3-9EF2-7B239B040D58}.Debug|x64.Build.0 = Debug|x64
+		{0BD23FCC-0031-41B3-9EF2-7B239B040D58}.Debug|x86.ActiveCfg = Debug|Win32
+		{0BD23FCC-0031-41B3-9EF2-7B239B040D58}.Debug|x86.Build.0 = Debug|Win32
+		{0BD23FCC-0031-41B3-9EF2-7B239B040D58}.Release|x64.ActiveCfg = Release|x64
+		{0BD23FCC-0031-41B3-9EF2-7B239B040D58}.Release|x64.Build.0 = Release|x64
+		{0BD23FCC-0031-41B3-9EF2-7B239B040D58}.Release|x86.ActiveCfg = Release|Win32
+		{0BD23FCC-0031-41B3-9EF2-7B239B040D58}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8B88C868-C05A-46FD-AC54-50B46A55284F}
+	EndGlobalSection
+EndGlobal

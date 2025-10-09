@@ -4,7 +4,7 @@
 ExitProcess PROTO, dwExitCode: DWORD
 
 .data
-	fifty DWORD 50;
+	fifty WORD 50;
 	score1 DWORD 35;
 	max1 DWORD 60
 	score2 DWORD 45
