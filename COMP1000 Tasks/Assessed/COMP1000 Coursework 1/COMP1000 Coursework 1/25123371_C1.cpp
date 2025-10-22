@@ -10,7 +10,35 @@ bool negativeStringCheck(string stringNumber)
 	return stringNumber[0] == '-'; //compares the first character to the negative sign. Returns true if it is equal (thus negative), and false if it isn't
 }
 
-int intInput(string promptMessage)	//ensures a 32 bit integer is input without crashing from invalid data types
+bool stringIntegerCheck(string stringNumber) //checks whether the string value can be converted into an integer without error.
+{
+	
+	//if user input is too large - max 32 bit integer length as a string is 10 (+ 1 if negative sign), the input is invalid
+	if (stringNumber.length() > 10 + negativeStringCheck(stringNumber)) //bools can be implicity converted to integer values 0 or 1, so 11 character inputs are accepted as long as the input is negative
+	{
+		cout << "input is too long" << "\n"; //informs the user of the error
+		return false;
+	}
+
+	//checks if the string any characters which isn't a negative sign or digit.
+	for (int i = negativeStringCheck(stringNumber); i < stringNumber.length(); i++) //loops through entire string, ignoring the first character if it's a negative sign
+	{
+		if (isdigit(stringNumber[i]) == false) 
+		{
+			cout << "input contains a character which is neither a digit nor negative sign."; //informs the user what's wrong with the input
+			return false; 
+		}
+	}
+
+	//check whether the string number is too long - max 32 bit integer
+
+
+	return true; // if both checks haven't found anything wrong, return true
+}
+
+
+
+int int32Input(string promptMessage)	//ensures a 32 bit integer is input without crashing from invalid data types
 {
 	cout << promptMessage << "\n"; //lets the user know that they have to input something, starts a new line for input
 
@@ -27,26 +55,14 @@ int intInput(string promptMessage)	//ensures a 32 bit integer is input without c
 		bool isNegative = negativeStringCheck(input); /*declare boolean to tell if the number is negative.
 	Since this loop iterates by each character in the string to ensure only digits, the numbers are assumed positive, so operations
 	will be done assuming the number is positive before converting the number to negative at the end this value is true.*/
-
-		//if user input is too large - max integer length as a string is 10 (+ 1 if negative), the input is invalid
-		if (input.length() > 10+isNegative) //isNegative can be implicity converted to integer values 0 or 1, so 11 character inputs are accepted as long as the input is negative
+		
+		//checks if an integer is stored in string
+		if (stringIntegerCheck(input) == false)
 		{
-			cout << "input is too long" << "\n"; //informs the user of the error
 			validInput = false;
 		}
 		
 		
-		
-		//loops through every character in the input to check if any are non-numeric (exclude first if negative)
-		for (int i = isNegative; i < input.length(); i++) 
-		{
-			if (isdigit(input[i])) //if the 
-			{
-
-			}   
-		}
-		
-
 	} while (true);
 
 	//Iterates for every character in the string.
@@ -75,7 +91,8 @@ void task1()
 }
 int main()
 {
-	intInput("test");
+	int32Input("test");
+	
 
 	return 0;
 }
