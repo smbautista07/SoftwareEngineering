@@ -10,11 +10,11 @@ ExitProcess PROTO, dwExitCode: DWORD  ; Exit process prototype
 .code ; code segment
 main PROC ; main procedure
 	lea ebx, arr ;loads the address of the first item in the array to register eax
-	mov al, [ebx + BYTE * 3] ;loads last element (index 3) of the array to 8-bit primary accumulator register al
 	mov cl, 3; register cl stores value 3
-	mul cl; multiply the value stored in the accumulator register by the value stored in cl (3)
-	mov dl, 6
-	div dl; 
+	mov al, [ebx + BYTE * 3] ;loads last element (index 3) of the array to 8-bit primary accumulator register al
+	mul cl; multiply the value stored in the accumulator register (40) by the value stored in cl (3)
+	mov cl, 6
+	div cl; 
 	mov [ebx + BYTE * 3], al
 		INVOKE ExitProcess, 0 ; call exit function
   
