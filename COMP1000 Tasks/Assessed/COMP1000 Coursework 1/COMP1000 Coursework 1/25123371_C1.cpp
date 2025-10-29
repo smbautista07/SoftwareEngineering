@@ -11,11 +11,11 @@ bool negativeStringCheck(string stringNumber)
 	return stringNumber[0] == '-'; //compares the first character to the negative sign. Returns true if it is equal (thus negative), and false if it isn't
 }
 
-bool stringIntCheck(string stringNumber) //checks whether the string value stores an integer
+bool stringIntCheck(string input) //checks whether the string value stores an integer
 {
-	for (int i = negativeStringCheck(stringNumber); i < stringNumber.length(); i++) //loops through entire string, ignoring the first character if it's a negative sign
+	for (int i = negativeStringCheck(input); i < input.length(); i++) //loops through entire string, ignoring the first character if it's a negative sign
 	{
-		if (isdigit(stringNumber[i]) == false) 
+		if (isdigit(input[i]) == false)
 		{
 			cout << "Input contains a character which is neither a digit nor negative sign." << "\n"; //informs the user what's wrong with the input
 			return false;
@@ -40,50 +40,63 @@ int stringToInt(string stringNumber)
 	return number;
 }
 
-bool stringInt32Check(string stringNumber)
+bool stringInt32Check(string input)
 {
-	bool isNegative = negativeStringCheck(stringNumber);
+	bool isNegative = negativeStringCheck(input);
+
+	//must all be true until the end
+	bool validInput = true; //flag for if the input can be turned into an integer 10 digits or less
+	bool validInteger = true; //flag for if the input is within the range of values for a 32 bit integer
 	
-	if (stringNumber.length() > 10 + isNegative) //checks if the input is too long (>10 when excluding negative sign). Addressed first in case of absurdly long input
+	if (input.length() > 10 + isNegative) //checks if the input is too long (>10 when excluding negative sign). Addressed first in case of absurdly long input
 	{
 		cout << "Input is too large to be a 32 bit integer (up to 10 characters long, or 11 for negative numbers)" <<"\n";
-		return false;
+		validInput = false;
 	}
 
-	if (stringIntCheck(stringNumber) == false) 
+	if (stringIntCheck(input) == false)
+	{
+		validInput = false;
+	}
+
+	//if the inputs are invalid, stop checking. The remaining checks require an string integer which is 10 or less characters long.
+	if (validInput == false)
 	{
 		return false;
 	}
 
-	//The inputs remaining are integers which are 10 or less digits long
-
 	//if the string is less than 10 digits long (excluding the negative sign) it is always valid. Most inputs are this
-	if (stringNumber.length() < 10 + isNegative)
+	if (input.length() < 10 + isNegative)
 	{
 		return true;
 	}
 
-	//the only remaining inputs are exactly 10 digits long when excluding the negative sign.
-	//check if the value is below the maximum 32 bit integer absolute value ((-1 ))
+	//The only remaining inputs are exactly 10 digits long when excluding the negative sign.
+	//Check if the value is below the maximum 32 bit integer absolute value ((-1 ))
 	//Comparing 9 of the 10 digits to prevent possibility of overflow
-	string highest9Digits = stringNumber.substr(isNegative, 9); //substring which starts at the first digit which is 9 digits long
+	string highest9Digits = input.substr(isNegative, 9); //substring which starts at the first digit which is 9 digits long
 	if (stringToInt(highest9Digits) > INT_MAX / 10) 
 	{
-		cout << "The integer you input is too large" << "\n";
-		return false; 
+		validInteger = false;
 	}
 
 	if (stringToInt(highest9Digits) == INT_MAX / 10)//if the first 9 digits are equal,
 	{
 		//compare the final digits
-		char lowestDigit = stringNumber[stringNumber.length()-1]; //highest digit
+		char lowestDigit = input[input.length()-1]; //highest digit
 
 		if (lowestDigit > '7'+isNegative) //does not need to be converted into integer for coomparison
 		{
-			cout << "The integer you input is too large" << "\n"; //final digit of INT_MAX
-			return false;
+			validInteger = false;
 		}
 	}
+
+	if (validInteger == false) 
+	{
+		cout << "The integer you input is too large" << "\n"; 
+		return false;
+	}
+
 	//the only remaining numbers are smaller or equal to the maximum value
 	return true;
 }
@@ -91,8 +104,8 @@ bool stringInt32Check(string stringNumber)
 string trim(string input) //Removes the spaces before and after an input
 {
 	//declare two variables which determine the start and end of the input. 
-	int start = 0;
-	int end = 0;
+	int start;
+	int end;
 
 	//iterate from the start of the input
 	for (int x = 0; x < input.length(); x++)
