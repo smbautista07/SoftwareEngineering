@@ -47,11 +47,13 @@ int stringToInt(string stringNumber)
 	}
 	return number;
 }
+
 bool stringInt32Check(string stringNumber)
 {
-	if (stringNumber.length() > 10 + negativeStringCheck(stringNumber)) //checks if the input is too long (>10 when excluding negative sign). Addressed first in case of absurdly long input
+	bool isNegative = negativeStringCheck(stringNumber);
+	if (stringNumber.length() > 10 + isNegative) //checks if the input is too long (>10 when excluding negative sign). Addressed first in case of absurdly long input
 	{
-		cout << "Input is too large to be a 32 bit integer (up to 10 characters long, or 11 for negative numbers)";
+		cout << "Input is too large to be a 32 bit integer (up to 10 characters long, or 11 for negative numbers)" <<"\n";
 		return false;
 	}
 
@@ -61,7 +63,7 @@ bool stringInt32Check(string stringNumber)
 	}
 
 	//if the string is less than 10 digits long (excluding the negative sign) it is always valid. Most inputs are this
-	if (stringNumber.length() < 10 + negativeStringCheck(stringNumber))
+	if (stringNumber.length() < 10 + isNegative)
 	{
 		return true;
 	}
@@ -69,29 +71,34 @@ bool stringInt32Check(string stringNumber)
 	//the only remaining inputs are exactly 10 digits long when excluding the negative sign.
 	//check if the value is below the maximum 32 bit integer absolute value ((-1 ))
 	//Comparing 9 of the 10 digits to prevent possibility of overflow
-	string first9Digits = stringNumber.substr(negativeStringCheck(stringNumber)+1, stringNumber.length());
-	if (stringToInt(first9Digits) > INT_MAX / 10) 
+	string highest9Digits = stringNumber.substr(isNegative, 9); //substring which starts at the first digit which is 9 digits long
+	if (stringToInt(highest9Digits) > INT_MAX / 10) 
 	{
-		cout << "The integer you input is too large"; 
+		cout << "The integer you input is too large" << "\n";
 		return false; 
 	}
 
-	if (stringToInt(first9Digits) == INT_MAX / 10)//if the first 9 digits are equal,
+	if (stringToInt(highest9Digits) == INT_MAX / 10)//if the first 9 digits are equal,
 	{
 		//compare the final digits
-		/*if (stringToInt(stringNumber[stringNumber.length()]) > '7' + negativeStringCheck(stringNumber)) //does not need to be converted into integer
-		{
-			cout << "The integer you input is too large"; //final digit of INT_MAX
-		}*/
-	}
-	//the only remaining numbers are smaller than the maximum
-}
+		char lowestDigit = stringNumber[stringNumber.length()-1]; //highest digit
 
+		if (lowestDigit > '7'+isNegative) //does not need to be converted into integer for coomparison
+		{
+			cout << "The integer you input is too large" << "\n"; //final digit of INT_MAX
+			return false;
+		}
+	}
+	//the only remaining numbers are smaller or equal to the maximum value
+	return true;
+}
 
 int int32Input(string promptMessage)	//ensures a 32 bit integer is input without crashing from invalid data types
 {
 	cout << promptMessage << "\n"; //lets the user know that they have to input something, starts a new line for input
 
+	//store user input as a string to avoid type error
+	string input;
 	//loops until an input is valid
 	do
 	{
@@ -99,46 +106,31 @@ int int32Input(string promptMessage)	//ensures a 32 bit integer is input without
 		bool validInput = true; //initialises flag which informs the program to loop if nothing wrong is found with the input
 
 		//user input
-		string input;	//store user input as a string to avoid type error
 		cin >> input;	
 
 		//checks if an integer is stored in string
-		
-		
-		
-		
-		
+	} while (stringInt32Check(input) == false);
+	
+	return stringToInt(input);
 
-	} while (true);
-
-	//Iterates for every character in the string.
-
-
-	//if (isdigit(ch))
-	//cout << input << "\n";
-	//return input;
+	
 	return 0;
 }
 
 
 void task1()
 {
-	//initialise local integer variables
-	int num1; //if last number of studentID, equal to 1
-	int num2; //if second to last number of studentID, equal to 7
-	cout << "Input one number\n"; //Prompts the user to enter a number
-	cin >> num1; //stores input value into integer variable
-	cout << "Input another number to add to it\n"; //Prompts the user to enter a second number
-	cin >> num2; //
+	//Initialises two integer variables using user integer input twice.
+	int num1 = int32Input("Input one number");  //Second to last digit of studentID = 7
+	int num2 = int32Input("Input another"); //Last digit of studentID = 1
 
-	cout << num1+num2;
-	
-	
+	//outputs the sum of the two inputs. 
+	cout << num1+num2; //Would output 8 (7+1) using studentID
 }
 int main()
 {
-	//int32Input("test");
-	cout << stringToInt("2");
+	
+	cout << int32Input("test");
 	
 	return 0;
 }
