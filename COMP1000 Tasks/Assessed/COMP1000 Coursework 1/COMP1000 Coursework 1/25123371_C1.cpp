@@ -308,15 +308,26 @@ void globalOutputDemonstration()
 	cout << "value of this variable from another function" << demonstration << "\n";
 }
 
-void task10() //unsure if this is comparing global with static global or global with local. For now it is just comparing global with local. Needs clarification.
+
+
+static string stat_glob = "static global"; //global static variable. Visible to all functions in this file but not visible in other files.
+string glob = "global"; //global variable, visible to all linked files and functions.
+
+void func1()
 {
-	cout << "A global variable with the value " <<demonstration<<"has been declared."<<"\n";
-	cout << "Try to overwrite it: ";
-	cin >> demonstration;
-	cout << "Value you output: " << demonstration;
-	globalOutputDemonstration(); //shows accessibility to other functions
-	cout << demonstration;
-	
+	cout << stat_glob << "\n";
+	cout << glob << "\n";
+}
+
+void func2()
+{
+	cout << stat_glob << "\n";
+	cout << glob << "\n";
+}
+void task10() 
+{
+	func1();
+	func2();
 }
 
 int main()
@@ -329,6 +340,6 @@ int main()
 	//task6();
 	//task8();
 	//task9();
-	//task10();
+	task10();
 	return 0;
 }
