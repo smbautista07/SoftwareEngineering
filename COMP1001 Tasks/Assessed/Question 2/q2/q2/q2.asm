@@ -5,11 +5,11 @@
 ExitProcess PROTO, dwExitCode: DWORD  ; Exit process prototype
 
 .data ; data segment
-	c BYTE 10,20,30,40; initialise array with values from assignment
+	arr BYTE 10,20,30,40; initialise array with values from assignment
   
 .code ; code segment
 main PROC ; main procedure
-	lea ebx, c ;loads the address of the first item in the array to register eax
+	lea ebx, arr ;loads the address of the first item in the array to register eax
 	mov cl, 3; register cl stores value 3
 	mov al, [ebx + BYTE * 3] ;loads last element (index 3) of the array to 8-bit primary accumulator register al
 	mul cl; multiply the value stored in the accumulator register (40) by the value stored in cl (3)
