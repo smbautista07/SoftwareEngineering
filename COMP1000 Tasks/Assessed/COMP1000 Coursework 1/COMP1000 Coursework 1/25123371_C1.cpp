@@ -140,13 +140,12 @@ int int32Input(string promptMessage)	//ensures a 32 bit integer is input without
 	//loops until an input is valid
 	do
 	{
-		//user input
-		getline(cin, input); //input method which, unlike cin with an extraction operator, does not use the space as a delimiter.
 		
-		if (input.length() == 0) //prevent empty inputs
+		while (input.length() == 0) //prevent empty inputs
 		{
+			//user input
+			getline(cin, input); //input method which, unlike cin with an extraction operator, does not use the space as a delimiter.
 			cout << "Empty input. Try again" <<"\n";
-			continue;
 		}
 
 		input = trim(input); //removes leading and trailing spaces
