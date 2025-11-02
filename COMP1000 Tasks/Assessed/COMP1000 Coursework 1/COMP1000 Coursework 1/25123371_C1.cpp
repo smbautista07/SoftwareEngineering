@@ -141,7 +141,8 @@ int int32Input(string promptMessage)	//ensures a 32 bit integer is input without
 	do
 	{
 		
-		while (input.length() == 0) //prevent empty inputs
+
+		do  //prevent empty inputs
 		{
 			//user input
 			getline(cin, input); //input method which, unlike cin with an extraction operator, does not use the space as a delimiter.
@@ -149,7 +150,7 @@ int int32Input(string promptMessage)	//ensures a 32 bit integer is input without
 			{
 				cout << "Empty input. Try again" <<"\n";
 			}
-		}
+		} while (input.length() == 0);
 
 		input = trim(input); //removes leading and trailing spaces
 	} while (stringInt32Check(input) == false);
@@ -252,6 +253,7 @@ void task6()
 
 void task7()
 {
+	cout << "Task 7: Calculate euclidean distance" << "\n";
 	double distance; //initialise a float variable to store result, since it's unlikely to be an integer
 	int point1[2]{51, 634};
 	int point2[2] = {7, 1};
@@ -260,14 +262,14 @@ void task7()
 	distance = sqrt((point1[0] - point2[0]) ^ 2 + (point1[1] - point2[1]) ^ 2);
 	
 	//tells the user the points and results
-	cout <<"Euclidean distance between "<< "(" << point1[0] << "," << point1[1] << ")" << " and " "(" << point2[0] << "," << point2[1] << ")" " = " << distance; 
+	cout <<"Euclidean distance between "<< "(" << point1[0] << "," << point1[1] << ")" << " and " "(" << point2[0] << "," << point2[1] << ")" " = " << distance << "\n";
 }
 
 int timesCalled() //function containing static variable defined for task 8
 {
 	static int calls = 0; //initialise a static variable with the value of 0. Static variables will not be reinitialised so the value will not be reset.
 	calls++; //every time this function is called, the value increments. 
-	cout << "This function has been called " << calls << " times";
+	cout << "This function has been called " << calls << " times" << "\n";
 	return calls; //return value stored in the static variable. This value will remain even after the function ends.
 }
 void task8()
@@ -352,6 +354,7 @@ int main()
 	task4();
 	task5();
 	task6();
+	task7();
 	task8();
 	task9();
 	task10();
