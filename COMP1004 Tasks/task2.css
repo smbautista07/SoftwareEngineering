@@ -1,0 +1,31 @@
+body
+{
+    background-image: url("C:\Users\Sean Bautista\Documents\SoftwareEngineering\COMP1004 Tasks\Images\Raiden_Metal_Gear_Rising.webp.png");
+    background-repeat: repeat;
+    background-position: center;
+    background-attachment: fixed;
+    background-size: cover;
+
+}
+
+
+.button
+{
+    font-weight:100;
+    background-color:blue;
+    color:red;
+    display:inline-block;
+    padding:50px;
+    font-family: Arial, Helvetica, sans-serif ;
+}
+a:hover
+{
+font-size:30;
+background-color:violet;
+}
+.div1
+{
+border: inset gold;
+background-color: silver;
+text-align:right;
+}
