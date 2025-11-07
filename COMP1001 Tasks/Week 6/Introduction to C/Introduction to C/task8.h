@@ -6,7 +6,8 @@
 
 void task8()
 {
-	short randShortArr[64];
+#define int64 64
+	short randShortArr[int64];
 
 	short arrLen = sizeof(randShortArr) / sizeof(randShortArr[0]);
 	for (short arrIdx = 0; arrIdx < arrLen; arrIdx++)
