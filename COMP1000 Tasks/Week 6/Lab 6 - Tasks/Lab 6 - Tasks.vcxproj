@@ -130,11 +130,15 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="shared_task_library.h" />
     <ClInclude Include="task1.h" />
     <ClInclude Include="test.h" />
     <ClInclude Include="task2.h" />
     <ClInclude Include="task3.h" />
     <ClInclude Include="task4.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="task2.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

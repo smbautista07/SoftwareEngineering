@@ -8,7 +8,7 @@
 
 int main()
 {
-	task1();
+	task3();
 	system("pause");
 	return 0;
 }
