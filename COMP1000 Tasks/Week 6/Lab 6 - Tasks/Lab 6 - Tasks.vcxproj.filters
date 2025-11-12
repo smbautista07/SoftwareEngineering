@@ -35,5 +35,11 @@
     <ClInclude Include="test.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="shared_task_library.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="task2.txt" />
   </ItemGroup>
 </Project>

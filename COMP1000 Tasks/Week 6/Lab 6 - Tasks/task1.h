@@ -13,6 +13,23 @@ integers, floating points, and strings.
 2. Format the output using stream manipulators (setw, setprecision).
 3. Ensure to handle file opening errors using is_open() and close the file after writing
 */
+bool filewriteline(string filename, string data)
+{
+	ofstream fw;
+	fw.open("task2.txt");
+	if (fw.is_open())
+	{
+		fw << data << "\n";
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
+
+
 void task1()
 {
 	string file_name = "file.txt";
@@ -40,6 +57,8 @@ void task1()
 		}
 		fr.close();
 	}
+
+
 
 	for (int output_loop = 0; output_loop < return_value_length; output_loop++)
 	{
