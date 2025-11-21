@@ -1,14 +1,43 @@
-
+class pongBall
+{
+    constructor(width, height)
+    {
+        this.x = 0;
+        this.y = 0;
+        this.xSpeed = 10;
+        this.ySpeed = 10;
+        this.width = width;
+        this.height = height;
+    }
+    
+    update()
+    {
+        this.x += this.xSpeed;
+        this.y += this.ySpeed;
+        if (this.x > 960 || this.x < 0)
+        {
+            this.xSpeed *= -1;
+        }
+        if (this.y >540 || this.y < 0)
+        {
+            this.ySpeed *= -1;
+        }
+    }
+}
 
 
 document.addEventListener('DOMContentLoaded', loadTools);
 
+var canvas = document.getElementById("screen");
+var ctx = canvas.getContext("2d");
+
+
+
 function loadTools()
 {
-    var canvas = document.getElementById("screen");
-    var ctx = canvas.getContext("2d");
     //drawBackground();
-    drawRect();
+    //drawRect();
+    
 }
 /*
 function drawBackground()
@@ -17,14 +46,25 @@ function drawBackground()
     ctx.fillRect(0,0,canvas.width,canvas.height);
 }
 */
-function drawRect()
+
+
+
+const ball = new pongBall(20,20);
+render();
+function render()
 {
-    cty = ctx;
-    cty.fillStyle = "yellow";
-    
-    cty.fillRect(40, 30, 10, 200);
+    ctx.fillStyle = "yellow";
+    ctx.fillRect(ball.x,ball.y,ball.width,ball.height);
+}
+
+function update()
+{
+    ball.update();
+    console.log("update!");
+    render();
 }
 
 
+setInterval(update,10)
 
 //document.addEventListener("DOMContentLoaded", loadTools());

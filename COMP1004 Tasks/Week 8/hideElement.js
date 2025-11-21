@@ -43,7 +43,7 @@ function change_image()
     var x = document.getElementById("cheese_burger");
     //x.setAttribute("src", "the goat.png")
     x.setAttribute("src", "idk.gif");
-    const timeout = setTimeout(revert,1000);
+    setTimeout(revert,1000);
 }
 
 function store_theme()
