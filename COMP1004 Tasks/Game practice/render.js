@@ -28,24 +28,26 @@ class rectCollider extends rectObj
         let theirXRight = otherObj.x+otherObj.width;
         let theirYTop = otherObj.y;
         let theirYBottom = otherObj.y+otherObj.height; 
-         if (xRight< theirXLeft)
-         {
-             console.log("ball is to the left");
-         }
-        if (xLeft > theirXRight)
-         {
-             console.log("ball is to the right");
-         }
-         if (xRight> theirXLeft && xLeft < theirXRight)
-         {
-             console.log("ball is to the x aligned");
-             if (yTop < theirYBottom && yBottom > theirYTop) // y axis aligned
+            // if (xRight< theirXLeft)
+            // {
+            //     console.log("ball is to the left");
+            // }
+            // if (xLeft > theirXRight)
+            // {
+            //     console.log("ball is to the right");
+            // }
+            if (xRight >= theirXLeft && xLeft <= theirXRight)
             {
-                console.log("COLLIDING");
+                // console.log("ball is x aligned");
+                if (yTop <= theirYBottom && yBottom >= theirYTop) // y axis aligned
+                {
+                    return true;
+                }
             }
-         }
-         
+            
 
+
+            
         // if (xLeft < theirXRight || xRight > theirXLeft) //x axis aligned
         // {
         //         console.log("x axis aligned");
@@ -83,21 +85,31 @@ class pongBall extends rectCollider
             this.ySpeed *= -1;
         }
     }
-
+    
 
 }
 
-document.addEventListener('DOMContentLoaded', loadTools);
+document.addEventListener('DOMContentLoaded', start);
 
-var canvas = document.getElementById("screen");
+const para = document.createElement('p');
+const words = document.createTextNode("Hi");
+
+para.appendChild(words);
+const paragraph = document.getElementById("oops");
+// document.body.insertBefore(para,paragraph);
+
+document.body.appendChild(para);
+// var canvas = document.getElementById("screen");
+var canvas = document.createElement("canvas"); 
+canvas.width = 960;
+canvas.height = 540;
+canvas.id = "screen";
+document.body.insertBefore(canvas,paragraph);
+
 var ctx = canvas.getContext("2d");
 
-
-
-function loadTools()
+function start()
 {
-    //drawBackground();
-    //drawRect();
     
 }
 /*
@@ -126,7 +138,12 @@ function render()
 function update()
 {
     ball.update();
-    ball.isCollidingWith(wall);
+    if (ball.isCollidingWith(wall))
+    {
+        ball.xSpeed*=-1;
+        ball.ySpeed*=-1;
+        
+    }
     //console.log("update!");
     render();
 }
