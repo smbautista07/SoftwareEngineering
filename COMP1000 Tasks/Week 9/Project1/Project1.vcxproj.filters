@@ -23,5 +23,14 @@
     <ClInclude Include="task1.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="task2.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="task3.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="task4.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -1,28 +1,45 @@
 #include <iostream>
 using namespace std;
 
-template <typename dataType>
+template <typename T>
 class Box
 {
+private:
+	T value;
+	string data_type;
 public:
-	Box(dataType val)
+	Box(string value_in)
 	{
-		string value = val;
+		value = value_in;
+		data_type = "string";
+	}
+	Box(int value_in)
+	{
+		value = value_in;
+		data_type = "int";
+
+	}
+	Box(double value_in)
+	{
+		value = value_in;
+		data_type = "double";
 	}
 
-	string get_value()
+
+	T getValue()
 	{
+		cout << "Box value (" << data_type << "): " << value <<"\n";
 		return value;
 	}
-private:
-	string value;
 };
+
 
 void task1()
 {
-	Box<string> object = Box<string>("43232");
-	//Box<string>* new object_on_heapBox<string>("this is for very large objects (more memory but slower)");
-	cout << object.get_value() << "\n";
-
-	//cout << object_on_heap->get_value() << "\n"; // -> can access methods through object pointers
+	Box<string> b = Box<string>("Hi");
+	Box<int> i = Box<int>(23);
+	Box<double> d = Box<double>(23.232);
+	b.getValue();
+	i.getValue();
+	d.getValue();
 }
