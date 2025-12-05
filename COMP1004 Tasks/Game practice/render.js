@@ -43,11 +43,7 @@ class rectCollider extends rectObj
                 {
                     return true;
                 }
-            }
-            
-
-
-            
+            }            
         // if (xLeft < theirXRight || xRight > theirXLeft) //x axis aligned
         // {
         //         console.log("x axis aligned");
@@ -85,8 +81,12 @@ class pongBall extends rectCollider
             this.ySpeed *= -1;
         }
     }
-    
 
+}
+
+class leftPaddle extends rectObj
+{
+    
 }
 
 document.addEventListener('DOMContentLoaded', start);
@@ -142,9 +142,14 @@ function update()
     {
         ball.xSpeed*=-1;
         ball.ySpeed*=-1;
-        
     }
+
+
     //console.log("update!");
+    // if (ball.hasOwn("xSpeed"))
+    // {
+    //     console.log("W");
+    // }
     render();
 }
 

@@ -6,22 +6,135 @@ document.body.appendChild(canvas);
 ctx.fillRect(50,50,50,50);
 
 setInterval(update,10);
+//setInterval(updateAlt, 20);
 
-var size = 1
 
+class inputHandler
+{
+    
+    // constructor()
+    // {
+        
+    //     // this.key_map = new Map(['e', false]);
+    // }
+    // addKey(character)
+    // {
+    //     this.key_map.set(character,true);
+    // }
+    // removeKey(character)
+    // {
+    //     this.key_map.set(character, false);
+    // }
+    // getKey(character)
+    // {
+    //     return this.key_map.get(character);
+    // }
+
+    // TESTING STATIC METHOD VIABILITY
+    static #property = new Map();
+    static testMethod()
+    {
+        return this.#property;
+    }
+    static addToProperty(key, value)
+    {
+        this.#property.set(key, value);
+    }
+    
+    static #experimentalSet = new Set();
+    static returnSet()
+    {
+        return this.#experimentalSet;
+    }
+    static addToSet(value)
+    {
+        this.#experimentalSet.add(value);
+    }
+    static removeFromSet(value)
+    {
+        this.#experimentalSet.delete(value);
+    }
+}
+
+function updateAlt()
+{
+    console.log("Hi");
+}
+// var key_map = new Map() 
+
+//var inputhandler =  inputHandler();
+
+document.addEventListener("keydown", input_add);
+document.addEventListener("keyup", input_add);
 function update()
 {
+    
     // ctx.fillRect(size,size,size,size);
     // size+=1;
 
-    document.addEventListener("keydown", output);
-    
+    // document.addEventListener("keydown", input_add);
+    // document.addEventListener("keyup", input_remove);
+
+
+    // if (key_map.get('e') == true)
+    // {
+    //     console.log("e is true");
+    // }
+    // if (key_map.get('d') == true)
+    // {
+    //     console.log("d is true");
+    // }
+
+
+    //console.log(inputHandler.getKey('e'));
+    //console.log(inputhandler.key_map);
+    //console.log(inputHandler.property);
+
+    //console.log(inputHandler.testMethod());
+    //inputHandler.addToProperty('e',true);
 
     
+    console.log(inputHandler.returnSet());
 
+
+    //document.addEventListener("keydown", keyEvent);
 }
 
-function output(e)
+//Writeup purposes only
+function keyEvent(eventInfo)
 {
-    console.log(e.key);
+    console.log(eventInfo.code);
 }
+
+function input_add(event)
+{
+
+    // console.log(e.key);
+    // inputHandler.addKey(e.key);
+    // key_map.set(e.key, true);
+    //console.log(e.key);
+    
+    //inputHandler.addToProperty(e.key, e.type == 'keydown');
+
+    // if (e.type == "keydown")
+    // {
+    //     inputHandler.addToSet(e.key );
+    // }
+    // else
+    // {
+    //     inputHandler.removeFromSet(e.key);
+    // }
+
+    //FINAL
+    (event.type == "keydown") ? inputHandler.addToSet(event.code):inputHandler.removeFromSet(event.code);
+
+    //console.log(e);
+}
+
+function input_remove(e)
+{
+    console.log(e);
+    // inputHandler.removeKey(e.key);
+    //key_map.set(e.key, false);
+}
+
