@@ -1,7 +1,5 @@
 "use strict";
 
-
-
 class inputHandler
 {
     static #inputs = new Set();
@@ -26,8 +24,8 @@ class inputHandler
     }
 }
 
-document.addEventListener("keydown",inputHandler.updateInputs);
-document.addEventListener("keyup",inputHandler.updateInputs);
+document.addEventListener("keydown", inputHandler.updateInputs);
+document.addEventListener("keyup", inputHandler.updateInputs);
 
 class rectObj
 {
@@ -111,12 +109,39 @@ class pongBall extends rectCollider
         }
     }
 
+    
+
 }
 
-// class leftPaddle extends rectObj
-// {
-    
-// }
+class paddle extends rectObj
+{
+    constructor(x, y, width = 0, height = 0, up_in, down_in)
+    {
+        super(x, y, width, height);
+        this.up = up_in;
+        this.down = down_in;
+    }
+
+    move(y_in)
+    {
+        this.y += y_in;
+    }
+
+    update()
+    {
+        this.yPrev = this.y
+        // console.log(inputHandler.getInputs())
+        if (inputHandler.getInputs().has(this.up))
+        {
+            
+            this.move(-10)
+        }
+        if (inputHandler.getInputs().has(this.down))
+        {
+            this.move(10)
+        }
+    }
+}
 
 document.addEventListener('DOMContentLoaded', start);
 
@@ -150,9 +175,12 @@ function drawBackground()
 */
 
 
-
 const ball = new pongBall();
 const wall = new rectCollider(480,0,30,240);
+
+const leftPaddle = new paddle(40, 270, 10, 100, "KeyW", "KeyS");
+const rightPaddle = new paddle(960-40-10, 270, 10, 100, "ArrowUp", "ArrowDown");
+
 ctx.fillStyle = "yellow";
 ctx.fillRect(wall.x, wall.y, wall.width, wall.height);
 
@@ -162,10 +190,18 @@ function render()
     ctx.fillStyle = "yellow";
     ctx.clearRect(ball.xPrev, ball.yPrev, ball.width,ball.height)
     ctx.fillRect(ball.x,ball.y,ball.width,ball.height);
+
+    ctx.clearRect(leftPaddle.x,leftPaddle.yPrev,leftPaddle.width,leftPaddle.height);
+    ctx.fillRect(leftPaddle.x,leftPaddle.y,leftPaddle.width,leftPaddle.height);
+
+    ctx.clearRect(rightPaddle.x,rightPaddle.yPrev,rightPaddle.width,rightPaddle.height);
+    ctx.fillRect(rightPaddle.x,rightPaddle.y,rightPaddle.width,rightPaddle.height);
 }
 
 function update()
 {
+    //currentInputs = inputHandler.
+
     ball.update();
     if (ball.isCollidingWith(wall))
     {
@@ -173,13 +209,19 @@ function update()
         ball.ySpeed*=-1;
     }
 
+    if (ball.isCollidingWith(leftPaddle))
+    {
+        ball.xSpeed = 5;
+    }
+    
+    if (ball.isCollidingWith(rightPaddle))
+    {
+        ball.xSpeed = -5;
+    }
 
-    //console.log("update!");
-    // if (ball.hasOwn("xSpeed"))
-    // {
-    //     console.log("W");
-    // }
-    console.log(inputHandler.getInputs());
+    leftPaddle.update();
+    rightPaddle.update();
+    // console.log(inputHandler.getInputs());
 
     render();
 }
