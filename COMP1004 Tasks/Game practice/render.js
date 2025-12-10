@@ -1,5 +1,34 @@
 "use strict";
 
+
+
+class inputHandler
+{
+    static #inputs = new Set();
+
+    static getInputs()
+    {
+        return this.#inputs;
+    }
+    
+    static addToSet(value)
+    {
+        this.#inputs.add(value);
+    }
+    static removeFromSet(value)
+    {
+        this.#inputs.delete(value);
+    }
+
+    static updateInputs(event)
+    {
+        (event.type == "keydown") ? inputHandler.addToSet(event.code):inputHandler.removeFromSet(event.code);
+    }
+}
+
+document.addEventListener("keydown",inputHandler.updateInputs);
+document.addEventListener("keyup",inputHandler.updateInputs);
+
 class rectObj
 {
     constructor(x, y, width = 0, height = 0)
@@ -72,11 +101,11 @@ class pongBall extends rectCollider
         this.yPrev = this.y;   
         this.x += this.xSpeed;
         this.y += this.ySpeed;
-        if (this.x > 960 || this.x < 0)
+        if (this.x > 960-this.width || this.x < 0)
         {
             this.xSpeed *= -1;
         }
-        if (this.y >540 || this.y < 0)
+        if (this.y >540-this.height || this.y < 0)
         {
             this.ySpeed *= -1;
         }
@@ -84,10 +113,10 @@ class pongBall extends rectCollider
 
 }
 
-class leftPaddle extends rectObj
-{
+// class leftPaddle extends rectObj
+// {
     
-}
+// }
 
 document.addEventListener('DOMContentLoaded', start);
 
@@ -150,6 +179,8 @@ function update()
     // {
     //     console.log("W");
     // }
+    console.log(inputHandler.getInputs());
+
     render();
 }
 

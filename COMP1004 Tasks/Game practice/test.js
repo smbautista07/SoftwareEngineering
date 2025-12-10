@@ -116,17 +116,17 @@ function input_add(event)
     
     //inputHandler.addToProperty(e.key, e.type == 'keydown');
 
-    // if (e.type == "keydown")
-    // {
-    //     inputHandler.addToSet(e.key );
-    // }
-    // else
-    // {
-    //     inputHandler.removeFromSet(e.key);
-    // }
+    if (event.type == "keydown")
+    {
+        inputHandler.addToSet(event.key );
+    }
+    else
+    {
+        inputHandler.removeFromSet(event.key);
+    }
 
     //FINAL
-    (event.type == "keydown") ? inputHandler.addToSet(event.code):inputHandler.removeFromSet(event.code);
+    // (event.type == "keydown") ? inputHandler.addToSet(event.code):inputHandler.removeFromSet(event.code);
 
     //console.log(e);
 }
