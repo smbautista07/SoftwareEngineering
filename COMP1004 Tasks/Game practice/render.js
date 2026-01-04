@@ -202,6 +202,7 @@ function render()
 {
     ctx.fillStyle = "yellow";
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     ctx.clearRect(ball.xPrev, ball.yPrev, ball.width,ball.height)
     ctx.fillRect(ball.x,ball.y,ball.width,ball.height);
 
@@ -210,6 +211,10 @@ function render()
 
     ctx.clearRect(rightPaddle.x,rightPaddle.yPrev,rightPaddle.width,rightPaddle.height);
     ctx.fillRect(rightPaddle.x,rightPaddle.y,rightPaddle.width,rightPaddle.height);
+=======
+    ctx.clearRect(ball.xPrev, ball.yPrev, ball.width,ball.height);
+    ctx.fillRect(ball.x,ball.y,ball.width,ball.height); //on rewrite make a method
+>>>>>>> Stashed changes
 =======
     ctx.clearRect(ball.xPrev, ball.yPrev, ball.width,ball.height);
     ctx.fillRect(ball.x,ball.y,ball.width,ball.height); //on rewrite make a method
@@ -261,6 +266,9 @@ function update()
     // {
     //     console.log("W");
     // }
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
     // console.log(inputHandler.getInputs());
 
