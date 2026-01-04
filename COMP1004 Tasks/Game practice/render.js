@@ -52,6 +52,8 @@ class rectCollider extends rectObj
         super(x,y,width, height);
     }
     
+
+
     isCollidingWith(otherObj)
     {
         let xLeft = this.x;
@@ -199,6 +201,7 @@ render();
 function render()   
 {
     ctx.fillStyle = "yellow";
+<<<<<<< Updated upstream
     ctx.clearRect(ball.xPrev, ball.yPrev, ball.width,ball.height)
     ctx.fillRect(ball.x,ball.y,ball.width,ball.height);
 
@@ -207,6 +210,10 @@ function render()
 
     ctx.clearRect(rightPaddle.x,rightPaddle.yPrev,rightPaddle.width,rightPaddle.height);
     ctx.fillRect(rightPaddle.x,rightPaddle.y,rightPaddle.width,rightPaddle.height);
+=======
+    ctx.clearRect(ball.xPrev, ball.yPrev, ball.width,ball.height);
+    ctx.fillRect(ball.x,ball.y,ball.width,ball.height); //on rewrite make a method
+>>>>>>> Stashed changes
 }
 
 var contactFlag = false;
@@ -245,8 +252,16 @@ function update()
         contactFlag = false;
     }
 
+<<<<<<< Updated upstream
     leftPaddle.update();
     rightPaddle.update();
+=======
+    //console.log("update!");
+    // if (ball.hasOwn("xSpeed"))
+    // {
+    //     console.log("W");
+    // }
+>>>>>>> Stashed changes
     // console.log(inputHandler.getInputs());
 
     render();
