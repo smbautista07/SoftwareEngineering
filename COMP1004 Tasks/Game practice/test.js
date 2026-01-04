@@ -64,8 +64,46 @@ function updateAlt()
 
 //var inputhandler =  inputHandler();
 
+class testClass1
+{
+    constructor()
+    {
+        this.attr1 = "testClass1";
+    }
+
+    methodT()
+    {
+        console.log(this.attr1);
+    }
+
+    methodU()
+    {
+        console.log(this.attr1);
+    }
+}
+
+class testClass2 extends testClass1
+{
+    constructor()
+    {
+        super();
+        this.attr2 = "testClass2";
+    }
+
+    methodT()
+    {
+        super.methodT();
+        console.log(this.attr2);
+    }
+}
 document.addEventListener("keydown", input_add);
 document.addEventListener("keyup", input_add);
+
+var testObj1 = new testClass1(); 
+
+var testObj2 = new testClass2();
+
+
 function update()
 {
     
@@ -94,17 +132,19 @@ function update()
     //inputHandler.addToProperty('e',true);
 
     
-    console.log(inputHandler.returnSet());
+    // testObj1.methodT();
+    testObj2.methodT();
+    // console.log(inputHandler.returnSet());
 
 
     //document.addEventListener("keydown", keyEvent);
 }
 
 //Writeup purposes only
-function keyEvent(eventInfo)
-{
-    console.log(eventInfo.code);
-}
+// function keyEvent(eventInfo)
+// {
+//     console.log(eventInfo.code);
+// }
 
 function input_add(event)
 {

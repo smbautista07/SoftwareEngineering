@@ -9,6 +9,11 @@ class inputHandler
         return this.#inputs;
     }
     
+    static checkKey(key)
+    {
+        return this.#inputs.has(key);
+    }
+
     static addToSet(value)
     {
         this.#inputs.add(value);
@@ -35,6 +40,8 @@ class rectObj
         this.y = y;
         this.width = width;
         this.height = height;
+        this.xSpeed;
+        this.ySpeed;
     }
 }
 
@@ -82,6 +89,8 @@ class rectCollider extends rectObj
     }
 }
 
+
+
 class pongBall extends rectCollider
 {
     constructor()
@@ -108,9 +117,6 @@ class pongBall extends rectCollider
             this.ySpeed *= -1;
         }
     }
-
-    
-
 }
 
 class paddle extends rectObj
@@ -131,15 +137,20 @@ class paddle extends rectObj
     {
         this.yPrev = this.y
         // console.log(inputHandler.getInputs())
-        if (inputHandler.getInputs().has(this.up))
+        if (inputHandler.checkKey(this.up))
         {
-            
-            this.move(-10)
+            this.ySpeed = -5;
         }
-        if (inputHandler.getInputs().has(this.down))
+        else if (inputHandler.checkKey(this.down))
         {
-            this.move(10)
+            this.ySpeed = 5;
         }
+        else
+        {
+            this.ySpeed = 0;
+        }
+
+        this.y += this.ySpeed;
     }
 }
 
@@ -198,6 +209,8 @@ function render()
     ctx.fillRect(rightPaddle.x,rightPaddle.y,rightPaddle.width,rightPaddle.height);
 }
 
+var contactFlag = false;
+
 function update()
 {
     //currentInputs = inputHandler.
@@ -211,12 +224,25 @@ function update()
 
     if (ball.isCollidingWith(leftPaddle))
     {
-        ball.xSpeed = 5;
+        if (!contactFlag)
+        {
+            ball.xSpeed = 5;
+            ball.ySpeed += leftPaddle.ySpeed;
+        }
+        contactFlag = true;
     }
-    
-    if (ball.isCollidingWith(rightPaddle))
+    else if (ball.isCollidingWith(rightPaddle))
     {
-        ball.xSpeed = -5;
+        if (!contactFlag)
+        {
+            ball.xSpeed = -5;
+            ball.ySpeed += rightPaddle.ySpeed;
+        }
+        contactFlag = true;
+    }
+    else 
+    {
+        contactFlag = false;
     }
 
     leftPaddle.update();
