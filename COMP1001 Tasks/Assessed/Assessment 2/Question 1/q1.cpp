@@ -21,29 +21,32 @@ void read_image(char* filename);
 void write_image2(char* filename);
 void openfile(char* filename, FILE** finput);
 int getint(FILE* fp);
+void reallocate_memory(int num1, int num2);
+void update_file_paths();
 
+//CRITICAL POINT: images' paths - You need to change these paths
+//Done
 
-//CRITICAL POINT: images' paths - You need to change these paths - done
-char IN[] = "C:\\Users\\Sean Bautista\\Documents\\SoftwareEngineering\\COMP1001 Tasks\\Assessed\\Assessment 2\\input_images\\a15.pgm";
-char OUT[] = "C:\\Users\\Sean Bautista\\Documents\\SoftwareEngineering\\COMP1001 Tasks\\Assessed\\Assessment 2\\output_images\\edge_detection15.pgm";
+//char IN[] = "C:\\Users\\Sean\\Documents\\GitHub\\SoftwareEngineering\\COMP1001 Tasks\\Assessed\\Assessment 2\\input_images\\a15.pgm";
+//char OUT[] = "C:\\Users\\Sean\\Documents\\GitHub\\SoftwareEngineering\\COMP1001 Tasks\\Assessed\\Assessment 2\\output_images\\edge_detection15.pgm";
+
+#define INPUT_FOLDER_PATH "C:\\Users\\Sean\\Documents\\GitHub\\SoftwareEngineering\\COMP1001 Tasks\\Assessed\\Assessment 2\\input_images"
+#define OUTPUT_FOLDER_PATH "C:\\Users\\Sean\\Documents\\GitHub\\SoftwareEngineering\\COMP1001 Tasks\\Assessed\\Assessment 2\\output_images"
+#define common_input_file_name "a"
+#define common_output_file_name "edge_detection"
+#define image_count 31
+char IN[400];
+char OUT[400];
 
 //IMAGE DIMENSIONS
-#define M 475  //cols
-#define N 460  //rows
-
+//Change: Magic number for image dimensions are not needed since they are stored in the file and realloc
+int N;
+int M;
 
 //CRITICAL POINT:these arrays are defined statically. Consider creating these arrays dynamically instead.
-
-//ORIGINAL
-//unsigned char input_image[N * M];//input image
-//unsigned char output_image[N * M];//output image
-
-//AMENDED
-unsigned char* input_image = (unsigned char*)malloc(N*M * sizeof(unsigned char));
-
-
-
-unsigned char* output_image = (unsigned char*)malloc(N * M * sizeof(unsigned char));
+//Change: I switched to the C compiler in the settings just to be sure I was using C language only and using malloc here caused an error, so I declared the global pointer here and used malloc in main
+unsigned char* input_image;
+unsigned char* output_image;
 
 const signed char GxMask[3][3] = {
 	{-1,0,1} ,
@@ -61,31 +64,63 @@ char header[100];
 errno_t err;
 
 int main() {
+	//Change: Used malloc to allocate memory dynamically which will allow for array size to be altered for different image sizes. The memory size using malloc does not need to be specified because it is reallocated during read_image.
+	input_image = (unsigned char*)malloc(0);
+	output_image = (unsigned char*)malloc(0);
+	
+	for (int index = 0; index < image_count; index++)
+	{
+		update_file_paths();//Updates the file path to the current image being processed
 
+		read_image(IN);//read image from disc
 
-	read_image(IN);//read image from disc
+		edge_detection(); //apply edge detection
 
-	edge_detection(); //apply edge detection
+		write_image2(OUT); //store output image to the disc
 
-	write_image2(OUT); //store output image to the disc
-
+	}
+	
+	
+	free(input_image);
+	free(output_image);
 
 	return 0;
 }
 
 
+void update_file_paths()
+{
+	static int current_index = 0;
+	
+	//strcat_s could not append "\\" by itself so I had to use snprintf
+	/*
+	CODE WHICH WAS NOT WORKING
+	strcpy_s(IN, 250, INPUT_FOLDER_PATH);
+	strcat_s(IN, 2, "\\");
+	strcat_s(IN, 140, common_input_file_name);
+	strcat_s(IN, 4, current_index);
+	strcat_s(IN, 4, ".pgm");
 
+	strcpy_s(OUT, 250, OUTPUT_FOLDER_PATH);
+	strcat_s(OUT, 2, "\\");
+	strcat_s(OUT, 140, common_output_file_name);
+	strcat_s(OUT, 4, current_index);
+	strcat_s(OUT, 4, ".pgm");
+	*/
 
+	snprintf(IN, 400, "%s//%s%i.pgm", INPUT_FOLDER_PATH, common_input_file_name, current_index);
+
+	snprintf(OUT, 400, "%s//%s%i.pgm", OUTPUT_FOLDER_PATH, common_output_file_name, current_index);
+
+	current_index += 1;
+}
 
 void edge_detection() {
 
 	int row, col, rowOffset, colOffset;
 	int Gx, Gy;
 
-	//ORIGINAL
-	//for (row = 1; row < N - 1; row++) {
-	//for (col = 1; col < M - 1; col++) {
-
+	//Change: Altered loop paramaters so all pixels are processed rather than ignoring the ones at the edges
 	for (row = 0; row < N; row++) {
 		for (col = 0; col < M; col++) {
 
@@ -94,32 +129,13 @@ void edge_detection() {
 
 			for (rowOffset = -1; rowOffset <= 1; rowOffset++) {
 				for (colOffset = -1; colOffset <= 1; colOffset++) {
-					//ORIGINAL
-					/*Gx += input_image[M * (row + rowOffset) + col + colOffset] * GxMask[rowOffset + 1][colOffset + 1];
-					Gy += input_image[M * (row + rowOffset) + col + colOffset] * GyMask[rowOffset + 1][colOffset + 1];*/
 
-					//AMENDED
-					
-					if (col + colOffset < 0 or row + rowOffset < 0  or col + colOffset >= M or row + rowOffset >= N)
-					{
-						Gx +=  0;
-						Gy +=  0;
-					}
-					else
+					//Change: The selected pixel with its offset is only used in the calculation if it can refer to an actual pixel in the image. If out of bounds, it does not affect the output.
+					if ( ( (col + colOffset) >= 0 && (col + colOffset) < M) && ((row + rowOffset) >= 0 && (row + rowOffset) < N))
 					{
 						Gx += input_image[M * (row + rowOffset) + col + colOffset] * GxMask[rowOffset + 1][colOffset + 1];
 						Gy += input_image[M * (row + rowOffset) + col + colOffset] * GyMask[rowOffset + 1][colOffset + 1];
 					}
-
-					/*if (row + rowOffset < 0 or row + rowOffset >= N)
-					{
-						Gy += input_image[M * (row + rowOffset) + col + colOffset] * 0;
-					}
-					else
-					{
-						Gy += input_image[M * (row + rowOffset) + col + colOffset] * GyMask[rowOffset + 1][colOffset + 1];
-					}*/
-					
 				}
 			}
 
@@ -233,18 +249,36 @@ void openfile(char* filename, FILE** finput)
 
 	//CRITICAL POINT: AT THIS POINT YOU CAN ASSIGN x0,y0 to M,N 
 	// printf("\n Image dimensions are M=%d,N=%d",M,N);
+	M = x0;
+	N = y0;
 
+	reallocate_memory(x0, y0);
 
 	x = getint(*finput); /* read and throw away the range info */
 	//printf("\n range info is %d",x);
-
+	
 }
 
 
 
 //CRITICAL POINT: you can define your routines here that create the arrays dynamically; now, the arrays are defined statically.
+//Change: Added a function to reallocate memory based on image size
 
-
+void reallocate_memory(int new_width, int new_height)
+{
+	int image_size = new_width * new_height * sizeof(unsigned char);
+	input_image = (unsigned char*) realloc(input_image, image_size);
+	output_image = (unsigned char*) realloc(output_image, image_size);
+	//catches null pointers to prevent memory leaks
+	if (input_image == NULL || output_image == NULL) 
+	{
+		printf("problem with memory allocation");
+		free(input_image);
+		free(output_image);
+		exit(-1);
+	}
+	
+}
 
 int getint(FILE* fp) /* adapted from "xv" source code */
 {
