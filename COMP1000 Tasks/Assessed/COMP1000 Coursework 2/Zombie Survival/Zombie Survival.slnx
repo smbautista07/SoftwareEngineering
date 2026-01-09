@@ -3,5 +3,5 @@
     <Platform Name="x64" />
     <Platform Name="x86" />
   </Configurations>
-  <Project Path="Zombie Surival/Zombie Surival.vcxproj" />
+  <Project Path="Zombie Surival/Zombie Surival.vcxproj" Id="5a3ec09d-2a1f-4772-90a1-8301b02209dd" />
 </Solution>
