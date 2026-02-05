@@ -24,6 +24,7 @@
     <ProjectGuid>{5a3ec09d-2a1f-4772-90a1-8301b02209dd}</ProjectGuid>
     <RootNamespace>ZombieSurival</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>ZombieSurvival</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -127,10 +128,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Zombie survival.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="renderer.h" />
+    <ClCompile Include="ZombieSurvival.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

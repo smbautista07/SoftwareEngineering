@@ -43,13 +43,13 @@ int main() {
 
 	start_1 = omp_get_wtime(); //start the timer 
 
-	q1();
+	/*q1();
 	q2();
-	q3();
+	q3();*/
 
-	/*q1_vec(); 
+	q1_vec(); 
 	q2_vec();
-	q3_vec();*/
+	q3_vec();
 	end_1 = omp_get_wtime(); //end the timer 
 
 	printf(" Time in seconds is %f\n", end_1 - start_1 );//print the ex.time
